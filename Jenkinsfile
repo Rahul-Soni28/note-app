@@ -84,7 +84,7 @@ pipeline {
                             sh 'kubectl apply -f kubernetes/app/nodeport.yml'
 
                         }
-                        kubernetesDeploy(configs: '**/app.yml', kubeconfigId: 'kube-config')
+                        kubernetesDeploy(configs: '**/app.yml', kubeconfigId: 'kubefile')
                     }
                 }
                 
