@@ -84,7 +84,9 @@ pipeline {
                         //     sh 'kubectl apply -f kubernetes/app/nodeport.yml'
 
                         // }
+                        script{
                         kubernetesDeploy configs: '**/app.yml', kubeConfig: [path: ''], kubeconfigId: 'kubefile', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+                        }
                     }
                 }
                 
