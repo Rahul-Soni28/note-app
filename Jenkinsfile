@@ -53,9 +53,9 @@ pipeline {
 
     stages{
         stage("Installing node_modules, packing and deployment"){
-            when{
-                branch 'main'
-            }
+            // when{
+            //     branch 'main'
+            // }
             stages{
                 stage("building docker image"){
                     steps{
@@ -80,10 +80,11 @@ pipeline {
                         withKubeConfig([credentialsId: 'kube-config']){
                             sh 'pwd && ls'
                             sh 'kubectl apply -f kubernetes/database/mongo.yml'
-                            sh 'kubectl apply -f kubernetes/app/app.yml'
+                            // sh 'kubectl apply -f kubernetes/app/app.yml'
                             sh 'kubectl apply -f kubernetes/app/nodeport.yml'
 
                         }
+                        kubernetesDeploy(configs: '**/app.yml', kubeconfigId: 'kube-config')
                     }
                 }
                 
