@@ -64,26 +64,26 @@ pipeline {
                         }
                     }
                 }
-                 stage("Pushing the docker image"){
-                    steps{
-                        script {
-                            docker.withRegistry('', dockerhub_creds){
-                                dockerImage.push()
-                                dockerImage.push('latest')
-                                dockerImage.push('v1')
-                            }
-                        }
-                    }
-                }
+                //  stage("Pushing the docker image"){
+                //     steps{
+                //         script {
+                //             docker.withRegistry('', dockerhub_creds){
+                //                 dockerImage.push()
+                //                 dockerImage.push('latest')
+                //                 dockerImage.push('v1')
+                //             }
+                //         }
+                //     }
+                // }
                  stage("Deploying"){
                     steps{
-                        withKubeConfig([credentialsId: 'kube-config']){
-                            sh 'pwd && ls'
-                            sh 'kubectl apply -f kubernetes/database/mongo.yml'
-                            // sh 'kubectl apply -f kubernetes/app/app.yml'
-                            sh 'kubectl apply -f kubernetes/app/nodeport.yml'
+                        // withKubeConfig([credentialsId: 'kube-config']){
+                        //     sh 'pwd && ls'
+                        //     sh 'kubectl apply -f kubernetes/database/mongo.yml'
+                        //     // sh 'kubectl apply -f kubernetes/app/app.yml'
+                        //     sh 'kubectl apply -f kubernetes/app/nodeport.yml'
 
-                        }
+                        // }
                         kubernetesDeploy(configs: '**/app.yml', kubeconfigId: 'kubefile')
                     }
                 }
